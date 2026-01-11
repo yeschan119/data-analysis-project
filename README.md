@@ -17,7 +17,7 @@ Angular (UI)
    ↓
 AWS Lambda
    ↓
-AWS QuickSight (Analysis & SPICE)
+AWS QuickSight
    ↓
 AWS Lambda (Embed URL)
    ↓
@@ -34,7 +34,7 @@ Angular (Iframe Embed)
 |------|-----------|
 | Frontend (UI) | Angular |
 | Backend API | ASP.NET Core (.NET, C#) |
-| Data Analysis | AWS QuickSight (Analysis, SPICE) |
+| Data Analysis | AWS QuickSight |
 | Data Source | AWS RDS |
 | Integration | AWS Lambda |
 | Visualization | Tables, Graphs, Insights, Tabs |
