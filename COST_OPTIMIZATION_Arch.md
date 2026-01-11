@@ -1,6 +1,6 @@
 # 1️⃣ Public Static Reports (High-Traffic)
 
-<img width="500" height="400" alt="public-url" src="https://github.com/user-attachments/assets/0cddd163-c054-4754-a6e4-1fe719d99111" />
+<img width="600" height="450" alt="public-url" src="https://github.com/user-attachments/assets/0cddd163-c054-4754-a6e4-1fe719d99111" />
 
 ---
 
