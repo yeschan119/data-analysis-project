@@ -130,7 +130,7 @@ Incident Management System Monitoring & Analytics
 
 ### Cost Optimization Details
 [![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
-[![Architecture](https://img.shields.io/badge/Docs-Architecture-0969da?style=for-the-badge)](./docs/COST_OPTIMIZATION_ARCHITECTURE.md)
+[![Cost Optimization Architecture](https://img.shields.io/badge/Docs-Architecture-0969da?style=for-the-badge)](./docs/COST_OPTIMIZATION_Arch.md)
 ---
 
 ## 🔄 End-to-End Optimized Flow
