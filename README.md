@@ -128,6 +128,10 @@ Incident Management System Monitoring & Analytics
 - Reduced redundant session creation
 - Significantly lowered reporting costs
 
+### Cost Optimization Details
+[![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
+[![Architecture](https://img.shields.io/badge/Docs-Architecture-0969da?style=for-the-badge)](./docs/ARCHITECTURE.md)
+[![Reports](https://img.shields.io/badge/Docs-Reports-6f42c1?style=for-the-badge)](./docs/REPORTS.md)
 ---
 
 ## 🔄 End-to-End Optimized Flow
