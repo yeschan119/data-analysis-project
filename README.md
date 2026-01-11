@@ -19,7 +19,7 @@ AWS Lambda
    ↓
 AWS QuickSight (Analysis & SPICE)
    ↓
-AWS Lambda
+AWS Lambda (Embed URL)
    ↓
 .NET API
    ↓
