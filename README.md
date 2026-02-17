@@ -1,4 +1,4 @@
-# 📊 Data Analysis Project  
+# 📊 AWS BI Reporting System Project  
 **AWS QuickSight–Driven Incident Management Reporting System**
 
 ## Overview
