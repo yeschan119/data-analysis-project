@@ -30,7 +30,7 @@
 
 # 2️⃣ Private Reports Processing (School / Region Specific)
 
-<img width="600" height="400" alt="private-url" src="https://github.com/user-attachments/assets/618d0b70-1e36-481b-a779-669a60ccb1cf" />
+<img width="600" height="500" alt="private-url" src="https://github.com/user-attachments/assets/618d0b70-1e36-481b-a779-669a60ccb1cf" />
 
 🔄 Private Report – High-Level Flow
 
