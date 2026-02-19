@@ -1,4 +1,4 @@
-# 💰 AWS QuickSight Cost Optimization & Snapshot Architecture
+# 💰 AWS QuickSight Cost Optimization Architecture
 
 ## Overview
 
@@ -16,7 +16,7 @@ The goal is to maintain high-performance report delivery while keeping session u
 
 ---
 
-# 🎯 Cost Optimization Goals
+# Cost Optimization Goals
 
 - Keep QuickSight sessions **≤ 1,000 per month**
 - Avoid redundant session creation
@@ -26,9 +26,9 @@ The goal is to maintain high-performance report delivery while keeping session u
 
 ---
 
-# 🧠 Cost Optimization Logic (System-Level)
+# Cost Optimization Logic (System-Level)
 
-## ✅ Phase 1 — Standard Mode (≤ 1,000 Sessions / Month)
+## Phase 1 — Standard Mode (≤ 1,000 Sessions / Month)
 
 ### Strategy
 - Use QuickSight IFrame Embed directly
@@ -42,7 +42,7 @@ The goal is to maintain high-performance report delivery while keeping session u
 
 ---
 
-## 🚨 Phase 2 — Optimized Mode (> 1,000 Sessions / Month)
+## Phase 2 — Optimized Mode (> 1,000 Sessions / Month)
 
 When threshold is exceeded, the system dynamically switches to:
 
@@ -56,7 +56,7 @@ Instead of generating new sessions for every request:
 
 ---
 
-# 🏗 Snapshot-Based Cost Optimization Architecture
+# Snapshot-Based Cost Optimization Architecture
 
 Two optimized report categories:
 
@@ -69,7 +69,7 @@ Two optimized report categories:
 
 <img width="600" height="400" alt="public-url" src="https://github.com/user-attachments/assets/0cddd163-c054-4754-a6e4-1fe719d99111" />
 
-## 📌 Use Case
+## Use Case
 
 - Frequently accessed dashboards
 - No user-specific filtering
@@ -108,7 +108,7 @@ Two optimized report categories:
 
 ---
 
-## 💰 Cost Impact
+## Cost Impact
 
 - Only one QuickSight session per scheduled generation
 - Unlimited snapshot reuse
@@ -120,7 +120,7 @@ Two optimized report categories:
 
 <img width="600" height="500" alt="private-url" src="https://github.com/user-attachments/assets/618d0b70-1e36-481b-a779-669a60ccb1cf" />
 
-## 📌 Use Case
+## Use Case
 
 Reports scoped by:
 - School
@@ -163,7 +163,7 @@ Snapshot Exists?
 
 ---
 
-## 📊 Key Outcomes
+## Key Outcomes
 
 - Significant reduction in QuickSight session cost
 - High-performance report delivery
@@ -172,7 +172,7 @@ Snapshot Exists?
 
 ---
 
-## 🧠 Design Considerations
+## Design Considerations
 
 - Snapshot cache invalidation strategy (time-based or data-change-based)
 - Secure snapshot access aligned with user permissions
