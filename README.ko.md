@@ -3,7 +3,7 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 이 프로젝트는 **AWS QuickSight 기반 데이터 분석 및 리포팅 플랫폼**을 구현한 사례입니다.  
 중·고등학교 대상 **Incident Management 및 운영 모니터링**을 지원하도록 설계되었습니다.
@@ -12,7 +12,7 @@
 
 ---
 
-# 🏗 High Level System Architecture
+# High Level System Architecture
 
 ```
 Angular (UI)
@@ -32,7 +32,7 @@ Angular (Iframe Embed)
 
 ---
 
-# 🧰 Tech Stack
+# Tech Stack
 
 | Layer | Technology |
 |------|-----------|
@@ -47,16 +47,16 @@ Angular (Iframe Embed)
 
 ---
 
-# 📊 Report Generation Strategy
+# Report Generation Strategy
 
 ## 1️⃣ Data Modeling
 
-### ✅ Complex Joins
+### Complex Joins
 - AWS RDS 내 **Database View**로 구현
 - QuickSight Dataset 단순화
 - 쿼리 성능 개선
 
-### ✅ Simple Transformations
+### Simple Transformations
 - **QuickSight Calculated Fields** 활용
 - 유연한 컬럼 생성 가능
 - 요구사항 변경에 빠르게 대응
@@ -74,7 +74,7 @@ Angular (Iframe Embed)
 
 ---
 
-# 🔐 Embedded Reporting Flow
+# Embedded Reporting Flow
 
 1. 리포트는 **AWS QuickSight**에서 생성 및 관리
 2. Angular에서 **Iframe 방식으로 임베딩**
@@ -83,7 +83,7 @@ Angular (Iframe Embed)
 
 ---
 
-# 👥 Report Clients
+# Report Clients
 
 - High Schools
 - Middle Schools
@@ -131,7 +131,7 @@ Incident Management System Monitoring & Analytics
 
 ---
 
-# 🔒 Authorization & Access Control
+# Authorization & Access Control
 
 - API 레벨에서 Permission Logic 적용
 - Embedded QuickSight 대시보드는 사용자 Scope를 준수
@@ -139,7 +139,7 @@ Incident Management System Monitoring & Analytics
 
 ---
 
-# 💰 Cost Optimization (중요)
+# Cost Optimization (중요)
 
 AWS QuickSight는 **세션당 $0.50** 과금됩니다.
 
@@ -160,6 +160,10 @@ AWS QuickSight는 **세션당 $0.50** 과금됩니다.
 - Headless Browser 기반 Snapshot 생성
 - Amazon S3 저장 후 재사용
 
+### Cost Optimization Details
+-> [![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
+
+<img width="600" height="400" alt="Screenshot 2026-02-19 at 23 49 28" src="https://github.com/user-attachments/assets/559fa96e-7fd8-4795-b7f1-75e49595aa4d" />
 ---
 
 ## 🔄 End-to-End Optimized Flow
@@ -184,7 +188,7 @@ Snapshot Exists?
 
 ---
 
-## 📈 Key Outcomes
+## Key Outcomes
 
 - QuickSight 세션 비용 대폭 절감
 - 빠른 리포트 로딩 속도
@@ -194,7 +198,7 @@ Snapshot Exists?
 
 ---
 
-# 🧠 Design Considerations
+# Design Considerations
 
 - Snapshot Cache Invalidation 전략
   - TTL 기반
@@ -206,7 +210,7 @@ Snapshot Exists?
 
 ---
 
-# 🏁 Key Takeaways
+# Key Takeaways
 
 - Production-grade 데이터 분석 플랫폼
 - 성능, 보안, 비용 효율성을 모두 고려한 설계
