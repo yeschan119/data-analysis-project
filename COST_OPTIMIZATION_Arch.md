@@ -4,26 +4,26 @@
 
 🔄 End-to-End Flow (Simplified)
 
-1. System Trigger
-	•	A scheduled or event-based trigger starts the snapshot workflow.
-2. Data Preparation
+### System Trigger
+	- A scheduled or event-based trigger starts the snapshot workflow.
+### Data Preparation
 	•	Required data is fetched from:
 	•	AWS RDS (MySQL) for core datasets
 	•	Amazon DynamoDB for campus and snapshot metadata
-3. Parallel Job Orchestration
+4. Parallel Job Orchestration
 	•	AWS Step Functions coordinate the entire snapshot process.
 	•	Campus-specific jobs are pushed into Amazon SQS for parallel execution.
-4. Auto-Scaling Snapshot Workers
+5. Auto-Scaling Snapshot Workers
 	•	EC2 Auto Scaling Group dynamically spins up Node.js snapshot workers.
 	•	Each worker performs the following steps:
 	•	Opens a QuickSight report using a headless browser
 	•	Applies parameters (school, region, filters)
 	•	Renders the report
 	•	Captures a snapshot
-5. Snapshot Storage
+6. Snapshot Storage
 	•	Generated snapshots are stored in Amazon S3.
 	•	Snapshot metadata is indexed for fast lookup and reuse.
-6. Scale Down
+7. Scale Down
 	•	Once all snapshot jobs are completed:
 	•	EC2 instances are automatically scaled down
 	•	No idle infrastructure cost remains
