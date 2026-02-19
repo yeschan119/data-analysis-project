@@ -1,6 +1,8 @@
 # AWS BI Reporting System Project  
 **AWS QuickSight–Driven Incident Management Reporting System**
 
+[한국어 🇰🇷](README.ko.md)
+
 ## Overview
 This repository showcases a **data analysis and reporting platform** built on **AWS QuickSight**, designed to support **incident management and operational monitoring** for educational institutions (High Schools & Middle Schools).
 
