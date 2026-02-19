@@ -1,4 +1,4 @@
-# 📊 AWS BI Reporting System Project  
+<img width="815" height="675" alt="Screenshot 2026-02-19 at 23 49 28" src="https://github.com/user-attachments/assets/7aa0e5d6-c255-49a2-a63d-1fafe0859f6c" /># 📊 AWS BI Reporting System Project  
 **AWS QuickSight–Driven Incident Management Reporting System**
 
 ## Overview
@@ -133,6 +133,8 @@ Incident Management System Monitoring & Analytics
 ### Cost Optimization Details
 [![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
 [![Cost Optimization Architecture](https://img.shields.io/badge/Docs-Architecture-0969da?style=for-the-badge)](./COST_OPTIMIZATION_Arch.md)
+<img width="600" height="400" alt="project3" src="https://github.com/user-attachments/assets/579211a4-6e2f-4e39-acf7-12f46075ca86" />
+
 ---
 
 ## 🔄 End-to-End Optimized Flow
