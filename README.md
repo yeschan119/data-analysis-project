@@ -8,7 +8,7 @@ The system delivers **10+ interactive reports** covering attendance, health inci
 
 ---
 
-## 🏗 System Architecture
+## High Level System Architecture
 
 ```
 Angular (UI)
@@ -28,16 +28,18 @@ Angular (Iframe Embed)
 
 ---
 
-## 🛠 Technology Stack
+## Tech Stack
 
 | Layer | Technology |
 |------|-----------|
 | Frontend (UI) | Angular |
 | Backend API | ASP.NET Core (.NET, C#) |
 | Data Analysis | AWS QuickSight |
-| Data Source | AWS RDS |
+| Data Source | AWS RDS, AWS DDB, AWS S3 |
 | Integration | AWS Lambda |
+| Data Pipeline | Lambda, Step Functions, SQS, EC2 |
 | Visualization | Tables, Graphs, Insights, Tabs |
+| Deploy | Azure Deveops |
 
 ---
 
