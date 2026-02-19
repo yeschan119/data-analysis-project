@@ -43,7 +43,7 @@ Angular (Iframe Embed)
 
 ---
 
-## 📈 Report Generation Strategy
+## Report Generation Strategy
 
 ### Data Modeling
 - **Complex Joins**
@@ -64,7 +64,7 @@ Angular (Iframe Embed)
 
 ---
 
-## 📊 Embedded Reporting Flow
+## Embedded Reporting Flow
 
 1. Reports are created and managed in **AWS QuickSight**
 2. Dashboards are embedded into Angular using **Iframe**
@@ -73,7 +73,7 @@ Angular (Iframe Embed)
 
 ---
 
-## 🧑‍🏫 Report Clients
+## Report Clients
 - High Schools
 - Middle Schools
 - District-level Administrators
@@ -83,7 +83,7 @@ Incident Management System Monitoring & Analytics
 
 ---
 
-## 📋 Report Categories
+## Report Categories
 
 ### 1️⃣ Attendance & Access Management (Daily / Monthly / Yearly)
 - Student attendance tracking
@@ -117,14 +117,14 @@ Incident Management System Monitoring & Analytics
 
 ---
 
-## 🔐 Authorization & Access Control
+## Authorization & Access Control
 - Permission logic enforced at API level
 - Embedded QuickSight dashboards respect user scope
 - Supports multi-tenant educational environments
 
 ---
 
-## 💰 Cost Optimization (Important)
+## Cost Optimization (Important)
 - QuickSight charges **$0.50 per session**
 - Implemented a **session caching system**
 - Reduced redundant session creation
@@ -157,7 +157,7 @@ Snapshot Exists?
 
 ---
 
-## 📊 Key Outcomes
+## Key Outcomes
 
 - Significant reduction in QuickSight session cost
 - High-performance report delivery
@@ -166,7 +166,7 @@ Snapshot Exists?
 
 ---
 
-## 🧠 Design Considerations
+## Design Considerations
 
 - Snapshot cache invalidation strategy (time-based or data-change-based)
 - Secure snapshot access aligned with user permissions
@@ -178,7 +178,7 @@ This approach ensures **cost efficiency without sacrificing usability**, making 
 
 ---
 
-## 🚀 Key Takeaways
+## Key Takeaways
 - Production-grade data analytics platform
 - Focus on performance, security, and cost efficiency
 - Demonstrates full-stack and cloud expertise
