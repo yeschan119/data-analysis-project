@@ -5,25 +5,25 @@
 🔄 End-to-End Flow (Simplified)
 
 ### System Trigger
-	- A scheduled or event-based trigger starts the snapshot workflow.
+	• A scheduled or event-based trigger starts the snapshot workflow.
 ### Data Preparation
 	•	Required data is fetched from:
 	•	AWS RDS (MySQL) for core datasets
 	•	Amazon DynamoDB for campus and snapshot metadata
-4. Parallel Job Orchestration
+### Parallel Job Orchestration
 	•	AWS Step Functions coordinate the entire snapshot process.
 	•	Campus-specific jobs are pushed into Amazon SQS for parallel execution.
-5. Auto-Scaling Snapshot Workers
+### Auto-Scaling Snapshot Workers
 	•	EC2 Auto Scaling Group dynamically spins up Node.js snapshot workers.
 	•	Each worker performs the following steps:
 	•	Opens a QuickSight report using a headless browser
 	•	Applies parameters (school, region, filters)
 	•	Renders the report
 	•	Captures a snapshot
-6. Snapshot Storage
+### Snapshot Storage
 	•	Generated snapshots are stored in Amazon S3.
 	•	Snapshot metadata is indexed for fast lookup and reuse.
-7. Scale Down
+### Scale Down
 	•	Once all snapshot jobs are completed:
 	•	EC2 instances are automatically scaled down
 	•	No idle infrastructure cost remains
@@ -34,15 +34,15 @@
 
 🔄 Private Report – High-Level Flow
 
-1. User Requests a Private Report
+### User Requests a Private Report
 	•	Request originates from the Angular UI
 	•	Routed through .NET API to a Lambda trigger
-2. Snapshot Metadata Check (DynamoDB)
+### Snapshot Metadata Check (DynamoDB)
 	•	Lambda checks whether a snapshot already exists for the combination of:
 	•	Report ID
 	•	School / Region
 	•	Applied filter parameters
-3. Decision Branch
+### Decision Branch
 	•	Snapshot Exists & Ready
 	•	Generate a pre-signed S3 URL
 	•	Return snapshot immediately (no QuickSight session required)
@@ -52,10 +52,10 @@
 
 ⚙ Snapshot Generation Workflow
 
-4. Step Functions Orchestration
+### Step Functions Orchestration
 	•	Coordinates the snapshot lifecycle
 	•	Manages retries and failure handling
-5. EC2 Snapshot Worker (Node.js)
+### EC2 Snapshot Worker (Node.js)
 	•	Snapshot code is pre-deployed to EC2
 	•	EC2 instance launches a headless browser
 	•	The worker:
@@ -64,7 +64,7 @@
 	•	School
 	•	Region
 	•	User-selected filters
-6. Snapshot Capture
+### Snapshot Capture
 	•	On success
 	•	Snapshot is stored in Amazon S3
 	•	Snapshot metadata status is updated to READY
@@ -73,7 +73,7 @@
 
 📦 Snapshot Delivery
 
-7. S3 Pre-Signed URL
+### S3 Pre-Signed URL
 	•	.NET API receives the snapshot location
 	•	Generates a secure, time-limited pre-signed URL
 	•	Snapshot is displayed instantly in the UI
