@@ -1,100 +1,145 @@
-# 💰 Cost Optimization Logic  
-**AWS QuickSight Session Cost Control Strategy**
+# 💰 AWS QuickSight Cost Optimization & Snapshot Architecture
+
+## Overview
 
 AWS QuickSight charges **$0.50 per session creation**.  
-To control operational cost while maintaining fast report access, this project implements a **multi-tier session optimization and snapshot caching strategy**.
+In high-traffic environments, uncontrolled embedding can significantly increase operational cost.
+
+This system implements:
+
+- **Session-aware cost control logic**
+- **Snapshot-based rendering architecture**
+- **Auto-scaling distributed processing**
+- **Reusable S3 caching strategy**
+
+The goal is to maintain high-performance report delivery while keeping session usage within predictable budget limits.
 
 ---
 
-## 🎯 Cost Optimization Goal
+# 🎯 Cost Optimization Goals
 
-- Keep QuickSight session usage **within 1,000 sessions per month**
-- Avoid unnecessary session creation for frequently accessed reports
-- Provide fast report rendering even after session limits are exceeded
+- Keep QuickSight sessions **≤ 1,000 per month**
+- Avoid redundant session creation
+- Maintain fast report access even after threshold
+- Preserve functional parity for dynamic reports
+- Eliminate idle infrastructure cost
 
 ---
 
-## ✅ Phase 1: Standard Usage (≤ 1,000 Sessions / Month)
+# 🧠 Cost Optimization Logic (System-Level)
+
+## ✅ Phase 1 — Standard Mode (≤ 1,000 Sessions / Month)
 
 ### Strategy
-- Use **QuickSight IFrame Embed** directly
-- Each user interaction creates a QuickSight session
+- Use QuickSight IFrame Embed directly
+- Each interaction creates a QuickSight session
 - Suitable for low to moderate traffic
 
 ### Characteristics
-- Real-time interactive dashboards
-- Full QuickSight functionality
-- Acceptable cost within monthly session quota
+- Fully interactive dashboards
+- Real-time filtering
+- Acceptable cost within quota
 
 ---
 
-## 🚨 Phase 2: Optimized Usage (> 1,000 Sessions / Month)
+## 🚨 Phase 2 — Optimized Mode (> 1,000 Sessions / Month)
 
-Once the session threshold is exceeded, the system dynamically switches to **snapshot-based rendering**.
+When threshold is exceeded, the system dynamically switches to:
 
----
+> **Snapshot-Based Rendering Mode**
 
-## 1️⃣ Public Static Reports (High-Traffic)
-
-### Use Case
-- Reports frequently accessed by many users
-- Same report is clicked repeatedly with no user-specific filtering
-
-### Optimization Logic
-1. Generate the full report once in QuickSight
-2. Render the report using a **headless browser**
-3. Capture a **snapshot (image or HTML render)**
-4. Store the snapshot in persistent storage (e.g., S3)
-5. Serve snapshots directly to users
-
-### Benefits
-- Zero additional QuickSight sessions
-- Extremely fast load times
-- Ideal for dashboards and summary reports
+Instead of generating new sessions for every request:
+1. Render once
+2. Capture snapshot
+3. Store in S3
+4. Reuse indefinitely
 
 ---
 
-## 2️⃣ Private Reports (School / Region Specific)
+# 🏗 Snapshot-Based Cost Optimization Architecture
 
-### Use Case
-- Reports scoped by:
-  - School
-  - Region
-  - User permissions
-- Requires dynamic filtering
+Two optimized report categories:
+
+1. **Public Static Reports (High-Traffic)**
+2. **Private Parameterized Reports (School / Region Specific)**
 
 ---
 
-### Initial Access Flow
+# 1️⃣ Public Static Reports (High-Traffic Dashboards)
 
-1. User clicks a private report
-2. System checks for an existing snapshot
-3. If not found:
-   - Launch report in a **headless browser**
-   - Apply required QuickSight parameters
-   - Capture snapshot
-   - Store snapshot
-4. Snapshot is immediately returned to the user
+<img width="600" height="400" alt="public-url" src="https://github.com/user-attachments/assets/0cddd163-c054-4754-a6e4-1fe719d99111" />
 
----
+## 📌 Use Case
 
-### Reuse Logic
-
-- If another user requests the **same report with identical parameters**:
-  - Serve the pre-generated snapshot
-  - No QuickSight session is created
+- Frequently accessed dashboards
+- No user-specific filtering
+- Same report requested repeatedly
 
 ---
 
-### Dynamic Filter Handling
+## 🔄 End-to-End Processing Flow
 
-1. User modifies filters or conditions in the UI
-2. Filter values are passed as **QuickSight parameters**
-3. Headless browser renders the filtered report
-4. A new snapshot is generated and stored
-5. Snapshot is reused for subsequent identical requests
+### 1️⃣ System Trigger
+- Scheduled job or event trigger starts snapshot workflow
+
+### 2️⃣ Data Preparation
+- Core datasets from **AWS RDS (MySQL)**
+- Campus & snapshot metadata from **Amazon DynamoDB**
+
+### 3️⃣ Parallel Job Orchestration
+- **AWS Step Functions** coordinates workflow
+- Campus-specific jobs pushed to **Amazon SQS**
+
+### 4️⃣ Auto-Scaling Snapshot Workers
+- **EC2 Auto Scaling Group** launches Node.js workers
+- Each worker:
+  - Opens QuickSight report via headless browser
+  - Applies parameters
+  - Renders report
+  - Captures snapshot
+
+### 5️⃣ Snapshot Storage
+- Stored in **Amazon S3**
+- Metadata indexed in DynamoDB for fast lookup
+
+### 6️⃣ Scale Down
+- EC2 instances terminate automatically
+- No idle infrastructure cost
 
 ---
+
+## 💰 Cost Impact
+
+- Only one QuickSight session per scheduled generation
+- Unlimited snapshot reuse
+- Near-zero cost for repeated access
+
+---
+
+# 2️⃣ Private Reports (School / Region Specific)
+
+<img width="600" height="500" alt="private-url" src="https://github.com/user-attachments/assets/618d0b70-1e36-481b-a779-669a60ccb1cf" />
+
+## 📌 Use Case
+
+Reports scoped by:
+- School
+- Region
+- Role permissions
+- User-selected filters
+
+---
+
+## 🔄 Request Flow
+
+### 1️⃣ User Request
+Angular UI → .NET API → Lambda trigger
+
+---
+
+### 2️⃣ Snapshot Metadata Check (DynamoDB)
+
+Lambda checks whether snapshot exists for:
 
 ## 🔄 End-to-End Optimized Flow
 
