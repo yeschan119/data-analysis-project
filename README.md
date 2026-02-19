@@ -132,7 +132,7 @@ Incident Management System Monitoring & Analytics
 
 ### Cost Optimization Details
 [![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
-[![Cost Optimization Architecture](https://img.shields.io/badge/Docs-Architecture-0969da?style=for-the-badge)](./COST_OPTIMIZATION_Arch.md)
+
 <img width="600" height="400" alt="Screenshot 2026-02-19 at 23 49 28" src="https://github.com/user-attachments/assets/559fa96e-7fd8-4795-b7f1-75e49595aa4d" />
 
 ---
