@@ -5,7 +5,7 @@
 
 ---
 
-## 🚀 Executive Summary
+## Executive Summary
 
 Production-grade **AWS Native Embedded BI Platform** designed for large-scale educational environments.
 
@@ -19,7 +19,7 @@ Production-grade **AWS Native Embedded BI Platform** designed for large-scale ed
 
 ---
 
-## 🏗 High-Level Architecture
+## High-Level Architecture
 
 ```
 Angular → .NET API → Lambda → QuickSight
@@ -32,7 +32,7 @@ Angular → .NET API → Lambda → QuickSight
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |------|-----------|
@@ -48,7 +48,7 @@ Angular → .NET API → Lambda → QuickSight
 
 ---
 
-# 🔍 Detailed Sections (Click to Expand)
+# Detailed Sections (Click to Expand)
 
 ---
 
@@ -271,7 +271,7 @@ QuickSight selected as AWS-native BI replacement.
 
 ---
 
-## 🎯 Impact
+## Impact
 
 - 💰 Reduced projected reporting cost by ~90%
 - ⚡ Maintains ~3s response time
