@@ -1,6 +1,7 @@
 # AWS BI Reporting System Project  
 **AWS QuickSight–Driven Analytics & Reporting Platform**
 
+[한국어 🇰🇷](README.ko.md)
 ---
 
 ## Overview
@@ -230,7 +231,6 @@ Snapshot Exists?
 
 <img width="600" height="400" alt="Screenshot 2026-02-19 at 23 49 28" src="https://github.com/user-attachments/assets/559fa96e-7fd8-4795-b7f1-75e49595aa4d" />
 
--
 ### Result
 
 - Reduced session creation dramatically
