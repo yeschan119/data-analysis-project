@@ -75,9 +75,9 @@ Angular → .NET API → Lambda → QuickSight
 - Total reports: ~30
 - Visualization types: ~10 (Table, Insight, Graph, KPI, Tabs)
   
-   <img width="1551" height="883" alt="Screenshot 2026-02-20 at 08 12 42" src="https://github.com/user-attachments/assets/d4d865f4-35d5-4b2e-a0ed-42ee1933df47" />
+   <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 12 42" src="https://github.com/user-attachments/assets/d4d865f4-35d5-4b2e-a0ed-42ee1933df47" />
    
-   <img width="700" height="370" alt="Screenshot 2026-02-20 at 08 13 33" src="https://github.com/user-attachments/assets/f87cb71a-8223-4b74-8bbd-afdc67bbdbc8" />
+   <img width="700" height="380" alt="Screenshot 2026-02-20 at 08 13 33" src="https://github.com/user-attachments/assets/f87cb71a-8223-4b74-8bbd-afdc67bbdbc8" />
    
    <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 29 10" src="https://github.com/user-attachments/assets/3e902417-3808-490c-99cf-c60b2b505d34" />
 
