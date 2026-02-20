@@ -77,7 +77,7 @@ Angular → .NET API → Lambda → QuickSight
   
    <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 12 42" src="https://github.com/user-attachments/assets/873b27ff-497a-4fcf-857e-bba80682a37e" />
    
-   <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 13 33" src="https://github.com/user-attachments/assets/f87cb71a-8223-4b74-8bbd-afdc67bbdbc8" />
+   <img width="700" height="370" alt="Screenshot 2026-02-20 at 08 13 33" src="https://github.com/user-attachments/assets/f87cb71a-8223-4b74-8bbd-afdc67bbdbc8" />
    
    <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 29 10" src="https://github.com/user-attachments/assets/3e902417-3808-490c-99cf-c60b2b505d34" />
 
