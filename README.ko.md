@@ -1,18 +1,27 @@
 # AWS BI Reporting System Project  
-**AWS QuickSight 기반 Incident Management 리포팅 시스템**
+**AWS QuickSight 기반 Analytics & Reporting 플랫폼**
 
 ---
 
-## Overview
+## 개요 (Overview)
 
-이 프로젝트는 **AWS QuickSight 기반 데이터 분석 및 리포팅 플랫폼**을 구현한 사례입니다.  
-중·고등학교 대상 **Incident Management 및 운영 모니터링**을 지원하도록 설계되었습니다.
+이 프로젝트는 **Amazon QuickSight**를 활용하여 구축한  
+**대규모 교육 환경을 위한 Production-Grade AWS BI 리포팅 플랫폼**입니다.
 
-총 **10개 이상의 인터랙티브 리포트**를 제공하며, 출결, 건강 사고, 학군(District) 단위 통계 등을 웹 애플리케이션에 자연스럽게 임베딩합니다.
+본 시스템은 운영 모니터링, 출결 관리, 건강 관리, 교육청 단위 통계 분석 등을 포함한  
+**30개 이상의 인터랙티브 리포트**를 웹 애플리케이션에 완전 임베딩 방식으로 제공합니다.
+
+설계 시 다음 요소를 핵심 가치로 두었습니다:
+
+- 성능 최적화
+- 비용 효율성
+- 멀티 테넌트 권한 관리
+- 확장 가능한 AWS 네이티브 아키텍처
+- 데이터베이스 레벨 튜닝
 
 ---
 
-# High Level System Architecture
+# 상위 아키텍처 (High-Level Architecture)
 
 ```
 Angular (UI)
@@ -23,7 +32,7 @@ AWS Lambda
    ↓
 AWS QuickSight
    ↓
-AWS Lambda (Embed URL 생성)
+AWS Lambda (Embed URL)
    ↓
 .NET API
    ↓
@@ -32,187 +41,294 @@ Angular (Iframe Embed)
 
 ---
 
-# Tech Stack
+# 기술 스택 (Tech Stack)
 
-| Layer | Technology |
-|------|-----------|
-| Frontend (UI) | Angular |
-| Backend API | ASP.NET Core (.NET, C#) |
-| Data Analysis | AWS QuickSight |
-| Data Source | AWS RDS, AWS DynamoDB, AWS S3 |
-| Integration | AWS Lambda |
-| Data Pipeline | Lambda, Step Functions, SQS, EC2 |
-| Visualization | Tables, Graphs, Insights, Tabs |
-| Deploy | Azure DevOps |
+| 구성 레이어 | 기술 |
+|-------------|------|
+| Frontend | Angular |
+| Backend | ASP.NET Core (.NET, C#) |
+| BI 엔진 | Amazon QuickSight |
+| Database | AWS RDS (MySQL) |
+| 메타데이터 저장소 | DynamoDB |
+| 스토리지 | Amazon S3 |
+| 연동 계층 | AWS Lambda |
+| 데이터 파이프라인 | Lambda, Step Functions, SQS, EC2 |
+| 배포 | Azure DevOps |
 
 ---
 
-# Report Generation Strategy
+# 시스템 규모 (System Scale)
 
-## 1️⃣ Data Modeling
+## 데이터 규모
 
-### Complex Joins
+- COVID 시기부터 최근 5년간 사건·사고 데이터 관리
+- 수십만 건 이상의 Incident 데이터
+- Incident 주요 필드:
+  - 고유 Incident ID
+  - 유형 (Positive / Suspected / Negative 등)
+  - 사용자 정보
+  - 백신 접종 상태
+  - 시설(Site)
+  - 생성 시각 (CreatedAt)
+  - 운영 메타데이터
+
+---
+
+## 사용량 및 트래픽
+
+- 일 평균 리포트 조회 수: 수천 ~ 수만 건
+- 평균 응답 시간: 약 3초
+- 총 리포트 수: 약 30개
+- 시각화 유형: 약 10가지 (Table, Insight, Graph, KPI, Tab 등)
+- 사용자 규모:
+  - 약 2,000개 학교
+  - 수천 명의 관리 직원
+
+---
+
+# 리포트 카테고리
+
+## 1️⃣ 출결 및 출입 관리
+
+- 학생 출석 추적
+- 교직원 체크인 / 체크아웃 로그
+- 지각 모니터링
+- 지각 통계 분석
+
+---
+
+## 2️⃣ 학교 건강 및 감염 관리
+
+- 백신 접종 현황 리포트
+- 감염 사례 추적
+- 감염자 시설 사용 이력 로그
+- 학교 / 교육청 / 기간 단위 집계
+
+---
+
+## 3️⃣ 교육청 및 학교 단위 요약 리포트
+
+- 그래프 기반 대시보드
+- 학교 단위 / 교육청 단위 집계 통계
+- 역할 기반 데이터 접근 제어:
+  - 학교 사용자 → 본인 학교 데이터만 접근
+  - 교육청 사용자 → 전체 학교 데이터 접근
+
+---
+
+# 데이터 모델링 전략
+
+## 복잡한 로직 처리
+
 - AWS RDS 내 **Database View**로 구현
 - QuickSight Dataset 단순화
-- 쿼리 성능 개선
-
-### Simple Transformations
-- **QuickSight Calculated Fields** 활용
-- 유연한 컬럼 생성 가능
-- 요구사항 변경에 빠르게 대응
+- 조인 비용 최소화
 
 ---
 
-## 2️⃣ Report Components
+## 단순 계산 처리
 
-- Parameters
-- Filters
-- Tables
-- Graphs & Charts
-- Insights
-- Tab 기반 대시보드
+- QuickSight Calculated Field 활용
 
 ---
 
-# Embedded Reporting Flow
+## DAX 대신 Custom SQL 사용
 
-1. 리포트는 **AWS QuickSight**에서 생성 및 관리
-2. Angular에서 **Iframe 방식으로 임베딩**
-3. 보안 접근은 **.NET API + AWS Lambda**를 통해 처리
-4. 사용자 권한에 따라 데이터 Scope 동적 제어
-
----
-
-# Report Clients
-
-- High Schools
-- Middle Schools
-- District-level Administrators
-
-**Primary Purpose:**  
-Incident Management System Monitoring & Analytics
+- Power BI DAX 대신
+- DB 레이어에서 Custom SQL 기반 집계 처리
+- BI 레이어는 시각화에 집중
 
 ---
 
-# 📂 Report Categories
+# 성능 최적화 전략
 
-## 1️⃣ Attendance & Access Management (Daily / Monthly / Yearly)
+## 1️⃣ 교육청 단위 리포트 최적화
 
-- 학생 출결 추적
-- 교직원 체크인 / 체크아웃 리포트
-- 지각 모니터링
-- 학생 지각 관리 기능 개선
+### 문제
 
----
+- 모든 학교 데이터를 집계해야 함
+- 수천 건의 학교 메타데이터 조회
+- RDS Join 비용 증가
 
-## 2️⃣ School Health & Disease Management (e.g., COVID)
+### 해결 방안
 
-- 백신 접종 현황
-  - 접종 여부
-  - 접종 날짜
-- 시설 기반 노출 추적
-  - 확진자의 사용 시설 로그 기록
-- 집계 기준:
-  - 학교별
-  - 학군별
-  - 날짜 범위별
+- 학교 메타데이터를 DynamoDB로 분리 저장
+- RDS ↔ DynamoDB 동기화 로직 구현
+- 리포트는 DynamoDB에서 학교 정보 조회
+
+### 결과
+
+- RDS 부하 감소
+- 교육청 단위 리포트 응답 시간 개선
 
 ---
 
-## 3️⃣ District & School-Level Summary Reports
+## 2️⃣ Daily 리포트 SPICE 최적화
 
-- 그래프 기반 요약 대시보드
-- 집계 기준:
-  - 개별 학교
-  - 전체 학군
-- **Role-based visibility**
-  - 학교 사용자 → 해당 학교 데이터만 접근
-  - 학군 관리자 → 전체 학교 데이터 접근
+### 특성
 
----
+- 실시간 확인 목적 아님
+- 전날 사건 요약 리포트
 
-# Authorization & Access Control
+### 해결 방안
 
-- API 레벨에서 Permission Logic 적용
-- Embedded QuickSight 대시보드는 사용자 Scope를 준수
-- Multi-tenant 교육 환경 지원
+- QuickSight SPICE 엔진에 데이터 적재
+- 하루 1회 Refresh
+- Direct Query 비활성화
 
----
+### 결과
 
-# Cost Optimization (중요)
-
-AWS QuickSight는 **세션당 $0.50** 과금됩니다.
-
-대규모 사용자 환경에서 세션 비용을 제어하기 위해 다음 전략을 도입했습니다:
-
-- 세션 캐싱 전략
-- Snapshot 기반 렌더링 구조
-- 중복 세션 생성 최소화
-- S3 기반 Snapshot 재사용 구조
+- 실시간 DB 부하 제거
+- 안정적인 응답 속도 확보
 
 ---
 
-## 📷 Snapshot 기반 비용 절감 전략
+## 3️⃣ 데이터베이스 레벨 튜닝
 
-### 핵심 개념
+- 인덱스 최적화
+- 실행 계획 분석
+- 조인 구조 개선
+- View 기반 모델링
+- 쿼리 비용 절감
 
-- 동일 리포트 반복 접근 시 세션 생성 방지
-- Headless Browser 기반 Snapshot 생성
-- Amazon S3 저장 후 재사용
-
-### Cost Optimization Details
--> [![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
-
-<img width="600" height="400" alt="Screenshot 2026-02-19 at 23 49 28" src="https://github.com/user-attachments/assets/559fa96e-7fd8-4795-b7f1-75e49595aa4d" />
 ---
 
-## 🔄 End-to-End Optimized Flow
+# 임베디드 리포팅 흐름
+
+1. QuickSight에서 리포트 생성
+2. Angular에서 Iframe 방식으로 임베딩
+3. .NET API + Lambda가 보안 Embed URL 생성
+4. 역할 기반 권한 검증 수행
+5. 멀티 테넌트 데이터 격리 유지
+
+---
+
+# 권한 및 멀티 테넌트 설계
+
+- API 레벨 권한 검증
+- QuickSight Parameter 기반 필터링
+- 학교 / 교육청 단위 접근 범위 분리
+- 보안 임베디드 접근 제어
+
+---
+
+# 비용 최적화 전략
+
+## 문제
+
+QuickSight 세션 비용:
+- **세션당 $0.50**
+
+일일 수만 건 리포트 조회 시:
+- 하루 수천 달러 비용 발생 가능
+
+---
+
+## Snapshot 기반 렌더링 아키텍처
 
 ```
 User Click
    ↓
 Snapshot Exists?
-   ├─ Yes → Serve Snapshot (Fast, No Session Cost)
+   ├─ Yes → Snapshot 제공 (세션 비용 없음)
    └─ No
         ↓
-   Headless Browser Render
+   Headless Browser 렌더링
         ↓
-   Apply QuickSight Parameters
+   파라미터 적용
         ↓
-   Snapshot Capture
+   Snapshot 생성
         ↓
-   Store Snapshot (S3)
+   S3 저장
         ↓
-   Serve Snapshot
+   Snapshot 제공
 ```
 
 ---
 
-## Key Outcomes
+### Cost Optimization Details
 
-- QuickSight 세션 비용 대폭 절감
-- 빠른 리포트 로딩 속도
-- 사용자 증가에 따른 수평 확장 가능
-- 인터랙티브 기능 유지
-- 비용 예측 가능성 확보
+[![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
+
+<img width="600" height="400" alt="Cost Optimization Architecture" src="https://github.com/user-attachments/assets/559fa96e-7fd8-4795-b7f1-75e49595aa4d" />
 
 ---
 
-# Design Considerations
+### 결과
 
-- Snapshot Cache Invalidation 전략
-  - TTL 기반
-  - 데이터 변경 기반
-- 사용자 권한과 일치하는 Snapshot 접근 제어
-- Public Static vs Private Dynamic 리포트 분리
-- Step Functions 기반 재시도 및 장애 복구
-- EC2 Auto Scaling 기반 무유휴 인프라 운영
+- 세션 생성 횟수 대폭 감소
+- 예상 비용 대비 약 90% 절감
+- 비인터랙티브 리포트에 대해 동일한 시각적 결과 유지
 
 ---
 
-# Key Takeaways
+# 기술적 의사결정: 왜 QuickSight인가?
 
-- Production-grade 데이터 분석 플랫폼
-- 성능, 보안, 비용 효율성을 모두 고려한 설계
-- Full-stack + Cloud 아키텍처 역량 입증
-- 대규모 교육 기관 환경에서 확장 가능한 BI 시스템 구현
+## 배경
+
+- 기존 BI 도구: Power BI
+- 회사 클라우드 환경: AWS
+
+---
+
+## 평가 요약
+
+| 평가 요소 | 결론 |
+|------------|------|
+| 클라우드 정합성 | AWS Native 우선 |
+| 리포트 수 (~30개) | QuickSight로 충분히 구현 가능 |
+| UI 커스터마이징 | Power BI가 강점이나 필수 요건 아님 |
+| 비용 모델 | Snapshot 전략으로 해결 가능 |
+
+---
+
+### 최종 결정
+
+AWS 네이티브 BI 플랫폼인 QuickSight 선택
+
+---
+
+# 프로젝트 임팩트 (Impact)
+
+## 비용 절감
+
+- 예상 리포팅 비용 대비 약 90% 절감
+
+---
+
+## 성능
+
+- 평균 3초 응답 시간 유지
+- 수십만 건 데이터 처리
+
+---
+
+## 확장성
+
+- 2,000개 이상 학교 지원
+- 수천 명 사용자
+- 멀티 테넌트 구조
+
+---
+
+## 엔지니어링 깊이
+
+- 인덱스 튜닝
+- View 기반 데이터 모델링
+- SPICE 전략 분리
+- Snapshot 캐싱 아키텍처
+- RDS-DynamoDB 동기화 설계
+- 역할 기반 보안 설계
+
+---
+
+# 결론
+
+이 프로젝트는 단순한 대시보드 구현이 아니라,
+
+- Production-Grade AWS BI 플랫폼
+- 비용 최적화된 임베디드 분석 시스템
+- 멀티 테넌트 보안 리포팅 구조
+- 데이터베이스 튜닝 기반 분석 플랫폼
+
+을 구현한 클라우드 네이티브 엔지니어링 사례입니다.
