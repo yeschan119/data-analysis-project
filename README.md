@@ -9,13 +9,13 @@
 
 Production-grade **AWS Native Embedded BI Platform** designed for large-scale educational environments.
 
-- 📊 30+ Interactive Reports
-- 🗂 Hundreds of thousands of incident records (5-year dataset)
-- ⚡ ~3s average response time
-- 🏫 2,000+ schools / Thousands of users
-- 💰 ~90% QuickSight session cost reduction
-- 🛠 Database-level tuning + View-based modeling
-- 🔐 Multi-tenant secure architecture
+- 30+ Interactive Reports
+- Hundreds of thousands of incident records (5-year dataset)
+- ~3s average response time
+- 2,000+ schools / Thousands of users
+- ~90% QuickSight session cost reduction
+- Database-level tuning + View-based modeling
+- Multi-tenant isolation architecture
 
 ---
 
@@ -281,13 +281,13 @@ QuickSight selected as AWS-native BI replacement.
 
 ## Impact
 
-- 💰 Reduced projected reporting cost by ~90%
-- ⚡ Maintains ~3s response time
-- 🏫 2,000+ schools supported
-- 👥 Thousands of users
-- 🔐 Multi-tenant architecture
-- 🛠 Index tuning + View-based modeling
-- ☁ Cloud-native BI architecture
+- Reduced projected reporting cost by ~90%
+- Maintains ~3s response time
+- 2,000+ schools supported
+- Thousands of users
+- Multi-tenant architecture
+- Index tuning + View-based modeling
+- Cloud-native BI architecture
 
 ---
 
