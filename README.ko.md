@@ -3,23 +3,23 @@
 
 ---
 
-## 🚀 Executive Summary
+## Executive Summary
 
 대규모 교육 환경(2,000+ 학교)을 지원하는  
 **AWS Native Embedded BI 플랫폼**을 설계·구현.
 
-- 📊 30+ Interactive Reports
-- 🗂 수십만 건 Incident 데이터
-- ⚡ 평균 응답 속도 ~3초
-- 💰 QuickSight 세션 비용 약 90% 절감
-- 🏫 Multi-Tenant (School / District 분리 구조)
-- 🛠 DB View + Index 기반 성능 튜닝
+- 30+ Interactive Reports
+- 수십만 건 Incident 데이터
+- 평균 응답 속도 ~3초
+- QuickSight 세션 비용 약 90% 절감
+- Multi-Tenant (School / District 분리 구조)
+- DB View + Index 기반 성능 튜닝
 
 > 단순 대시보드가 아닌 **비용·성능·확장성까지 고려한 엔터프라이즈 BI 시스템**
 
 ---
 
-## 🏗 Architecture (High-Level)
+## Architecture (High-Level)
 
 ```
 Angular → .NET API → Lambda → QuickSight
@@ -32,7 +32,7 @@ Angular → .NET API → Lambda → QuickSight
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |------|-----------|
@@ -226,12 +226,12 @@ Snapshot Exists?
 
 # 🏁 Impact
 
-- 💰 비용 90% 절감
-- ⚡ 3초 응답 유지
-- 🏫 2,000+ 학교 지원
-- 🧠 DB 튜닝 + View 모델링
-- 🔐 Multi-Tenant 보안 구조
-- ☁ Cloud-Native BI 설계
+- 비용 90% 절감
+- 3초 응답 유지
+- 2,000+ 학교 지원
+- DB 튜닝 + View 모델링
+- Multi-Tenant 보안 구조
+- Cloud-Native BI 설계
 
 ---
 
