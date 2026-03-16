@@ -1,7 +1,7 @@
 # AWS BI Reporting System Project  
 ### AWS QuickSight–Driven Analytics & Reporting Platform
 
-[한국어 🇰🇷](README.ko.md)
+[한국어 🇰🇷]([README.ko.md](https://github.com/yeschan119/aws-bi-reporting-system/blob/main/README.ko.md))
 
 ---
 
