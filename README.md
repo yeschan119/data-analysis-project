@@ -1,34 +1,35 @@
 # AWS BI Reporting System Project  
-### AWS QuickSight–Driven Analytics & Reporting Platform
+### AWS QuickSight 기반 Production-Grade Analytics Platform
 
-[한국어 🇰🇷](https://github.com/yeschan119/aws-bi-reporting-system/blob/main/README.ko.md)
-
+[ENGLISH 🇬🇧](https://github.com/yeschan119/aws-bi-reporting-system/blob/main/README.en.md)
 ---
 
 ## Executive Summary
 
-Production-grade **AWS Native Embedded BI Platform** designed for large-scale educational environments.
+대규모 교육 환경(2,000+ 학교)을 지원하는  
+**AWS Native Embedded BI 플랫폼**을 설계·구현.
 
 - 30+ Interactive Reports
-- Hundreds of thousands of incident records (5-year dataset)
-- ~3s average response time
-- 2,000+ schools / Thousands of users
-- ~90% QuickSight session cost reduction
-- Database-level tuning + View-based modeling
-- Multi-tenant isolation architecture
+- 수십만 건 Incident 데이터
+- 평균 응답 속도 ~3초
+- QuickSight 세션 비용 약 90% 절감
+- Multi-Tenant (School / District 분리 구조)
+- DB View + Index 기반 성능 튜닝
+
+> 단순 대시보드가 아닌 **비용·성능·확장성까지 고려한 엔터프라이즈 BI 시스템**
 
 ---
 
-## High-Level Architecture
+## Architecture (High-Level)
 
 ```
 Angular → .NET API → Lambda → QuickSight
         ← Secure Embed URL ←
 ```
 
-- Fully embedded reporting
-- Role-based access control
-- Snapshot-based cost optimization
+- 완전 임베디드 구조
+- Role-Based Access Control
+- Snapshot 기반 비용 최적화
 
 ---
 
@@ -38,79 +39,53 @@ Angular → .NET API → Lambda → QuickSight
 |------|-----------|
 | Frontend | Angular |
 | Backend | ASP.NET Core (.NET, C#) |
-| BI Engine | Amazon QuickSight |
+| BI | Amazon QuickSight |
 | Database | AWS RDS (MySQL) |
-| Metadata Store | DynamoDB |
-| Storage | Amazon S3 |
-| Integration | AWS Lambda |
-| Pipeline | Lambda, Step Functions, SQS, EC2 |
-| Deployment | Azure DevOps |
+| Metadata | DynamoDB |
+| Infra | Lambda, Step Functions, SQS, EC2 |
+| Storage | S3 |
+| CI/CD | Azure DevOps |
 
 ---
 
-# Detailed Sections (Click to Expand)
+## 📈 System Scale
+
+| 항목 | 규모 |
+|------|------|
+| 데이터 기간 | 최근 5년 (COVID 이후) |
+| Incident 데이터 | 수십만 건 |
+| 리포트 수 | 약 30개 |
+| 사용자 | 수천 명 |
+| 학교 수 | 2,000+ |
+| 평균 응답 시간 | ~3초 |
+| 일일 조회 수 | 수천 ~ 수만 건 |
 
 ---
 
-<details>
-<summary><strong>📈 System Scale</strong></summary>
-
-## Data Volume
-
-- 5 years of incident data (since COVID period)
-- Hundreds of thousands of records
-- Each incident contains:
-  - Unique Incident ID
-  - Type (Positive / Suspected / Negative)
-  - User Information
-  - Vaccination Status
-  - Site / Facility
-  - CreatedAt Timestamp
-  - Operational metadata
-
-## Usage & Traffic
-
-- Daily traffic: Thousands ~ Tens of thousands report views
-- Average response time: ~3 seconds
-- Total reports: ~30
-- Visualization types: ~10 (Table, Insight, Graph, KPI, Tabs)
-  
-   <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 12 42" src="https://github.com/user-attachments/assets/d4d865f4-35d5-4b2e-a0ed-42ee1933df47" />
-   
-   <img width="700" height="390" alt="Screenshot 2026-02-20 at 08 13 33" src="https://github.com/user-attachments/assets/f87cb71a-8223-4b74-8bbd-afdc67bbdbc8" />
-   
-   <img width="700" height="350" alt="Screenshot 2026-02-20 at 08 29 10" src="https://github.com/user-attachments/assets/3e902417-3808-490c-99cf-c60b2b505d34" />
-
-
-- Users:
-  - ~2,000 schools
-  - Thousands of administrative staff
-
-</details>
+# 🔍 Detailed Sections (Click to Expand)
 
 ---
 
 <details>
 <summary><strong>📊 Report Categories</strong></summary>
 
-## 1️⃣ Attendance & Access Management
-- Student attendance tracking
-- Staff check-in / check-out logs
-- Late arrival monitoring
-- Tardiness analytics
+### 1️⃣ 출결 및 출입 관리
+- 학생 출석 추적
+- 교직원 체크인 / 체크아웃
+- 지각 모니터링
+- 통계 분석
 
-## 2️⃣ School Health & Disease Monitoring
-- Vaccination reporting
-- Infection tracking
-- Facility exposure logging
-- Aggregation by school, district, date range
+### 2️⃣ 학교 건강 및 감염 관리
+- 백신 접종 현황
+- 감염 사례 추적
+- 시설 사용 로그
+- 학교/교육청 단위 집계
 
-## 3️⃣ District & School-Level Summary Reports
-- Graph-based dashboards
-- Aggregated statistics
-- Role-based visibility:
-  - School users → Access only their school
-  - District users → Access all schools
+### 3️⃣ 교육청 및 학교 요약 리포트
+- 그래프 기반 대시보드
+- Role-Based Data Visibility
+  - 학교 사용자 → 자기 학교 데이터만
+  - 교육청 사용자 → 전체 데이터
 
 </details>
 
@@ -119,17 +94,17 @@ Angular → .NET API → Lambda → QuickSight
 <details>
 <summary><strong>🧠 Data Modeling Strategy</strong></summary>
 
-## Complex Logic
-- Implemented as **Database Views in RDS**
-- Reduces dataset complexity
-- Improves QuickSight performance
+### 복잡한 로직
+- AWS RDS View 기반 구현
+- QuickSight Dataset 단순화
+- Join 비용 최소화
 
-## Simple Calculations
-- Implemented using QuickSight Calculated Fields
+### 단순 계산
+- Calculated Field 활용
 
-## Custom SQL Instead of DAX
-- Heavy aggregation handled at DB layer
-- Visualization layer kept lightweight
+### DAX 대신 Custom SQL
+- Power BI DAX 대신 DB 레이어에서 집계 처리
+- BI는 시각화에 집중
 
 </details>
 
@@ -138,168 +113,136 @@ Angular → .NET API → Lambda → QuickSight
 <details>
 <summary><strong>⚡ Performance Optimization</strong></summary>
 
-## 1️⃣ District-Level Heavy Reports
+### 1️⃣ District-Level Heavy Reports
 
-### Problem
-- Aggregation across all schools
-- Thousands of school metadata reads
-- Expensive RDS joins
+**문제**
+- 모든 학교 집계
+- 수천 건 메타데이터 조회
+- RDS Join 비용 증가
 
-### Solution
-- Isolated school metadata in DynamoDB
-- Implemented RDS ↔ DynamoDB sync logic
-- Reports fetch school metadata from DynamoDB
+**해결**
+- School Metadata를 DynamoDB로 분리
+- RDS ↔ DynamoDB Sync 설계
+- Report는 DynamoDB 조회
 
-### Result
-- Reduced RDS join cost
-- Improved district-level performance
-
----
-
-## 2️⃣ Daily Report Optimization (SPICE)
-
-### Characteristics
-- Not real-time
-- Daily summary of previous day's incidents
-
-### Solution
-- Load dataset into SPICE
-- Schedule daily refresh
-- Disable direct query
-
-### Result
-- Eliminated real-time DB pressure
-- Stable performance
+**결과**
+- RDS 부하 감소
+- 응답 시간 개선
 
 ---
 
-## 3️⃣ Database-Level Tuning
+### 2️⃣ Daily Report SPICE 전략
 
-- Index optimization
-- Execution plan analysis
-- Join restructuring
-- View-based modeling
-- Query cost reduction
+- 실시간 필요 없음
+- SPICE 적재 후 하루 1회 Refresh
+- Direct Query 제거
+
+→ 실시간 DB 부하 제거
+
+---
+
+### 3️⃣ DB Level Tuning
+
+- Index 최적화
+- Execution Plan 분석
+- Join 구조 개선
+- Query Cost 절감
 
 </details>
 
 ---
 
 <details>
-<summary><strong>🔐 Embedded Reporting Flow & Multi-Tenant Design</strong></summary>
+<summary><strong>💰 Cost Optimization Architecture</strong></summary>
 
-## Embedded Reporting Flow
+### 문제
 
-1. Reports created in QuickSight
-2. Dashboards embedded via Iframe
-3. .NET API + Lambda generate secure embed URLs
-4. Role-based permission enforced
-5. Multi-tenant isolation maintained
+QuickSight 세션 비용:
+- $0.50 / session
 
-## Authorization & Multi-Tenant Design
-
-- API-level permission enforcement
-- Parameter-based filtering
-- School-level & District-level scope separation
-- Secure embedded access
-
-</details>
+대량 트래픽 시 하루 수천 달러 발생 가능
 
 ---
 
-<details>
-<summary><strong>💰 Cost Optimization Strategy</strong></summary>
-
-## Problem
-
-QuickSight charges:
-- **$0.50 per session**
-
-With tens of thousands of daily opens:
-- Potential cost: Thousands of dollars per day
-
----
-
-## Snapshot Rendering Architecture
+### Snapshot Rendering 전략
 
 ```
 User Click
    ↓
 Snapshot Exists?
-   ├─ Yes → Serve Snapshot (No Session Cost)
+   ├─ Yes → Serve (No Session Cost)
    └─ No
         ↓
-   Headless Browser Render
-        ↓
-   Apply Parameters
+   Headless Render
         ↓
    Capture Snapshot
         ↓
-   Store Snapshot (S3)
+   Store (S3)
         ↓
-   Serve Snapshot
+   Serve
 ```
-
-Cost Optimization Details: 
-[![Cost Optimization](https://img.shields.io/badge/Docs-Cost%20Optimization-2ea44f?style=for-the-badge)](./COST_OPTIMIZATION.md)
-- <img width="600" height="400" alt="Screenshot 2026-02-19 at 23 49 28" src="https://github.com/user-attachments/assets/559fa96e-7fd8-4795-b7f1-75e49595aa4d" />
 
 ---
 
-### Result
+### 결과
 
-- Reduced session creation dramatically
-- Lowered cost to approximately 1/10 of projected usage
-- Maintains visual equivalence for non-interactive reports
+- 세션 생성 대폭 감소
+- 비용 약 90% 절감
+- 비인터랙티브 리포트 동일 UX 유지
 
 </details>
 
 ---
 
 <details>
-<summary><strong>🧩 Technical Decision: Why QuickSight?</strong></summary>
+<summary><strong>🧩 Authorization & Multi-Tenant Design</strong></summary>
 
-## Context
-- Client previously used Power BI
-- Company cloud platform is AWS
-
-## Evaluation Summary
-
-| Factor | Decision |
-|--------|----------|
-| Cloud Alignment | AWS-native preferred |
-| Report Count (~30) | Fully achievable in QuickSight |
-| UI Customization | Power BI stronger but not required |
-| Cost Model | Snapshot logic mitigates session cost |
-
-### Final Decision
-QuickSight selected as AWS-native BI replacement.
+- API 레벨 권한 검증
+- QuickSight Parameter 기반 필터링
+- School / District 데이터 범위 분리
+- Secure Embedded Access
 
 </details>
 
 ---
 
-## Impact
+<details>
+<summary><strong>🎯 Technical Decision: Why QuickSight?</strong></summary>
 
-- Reduced projected reporting cost by ~90%
-- Maintains ~3s response time
-- 2,000+ schools supported
-- Thousands of users
-- Multi-tenant architecture
-- Index tuning + View-based modeling
-- Cloud-native BI architecture
+### 배경
+- 기존 BI: Power BI
+- 회사 클라우드: AWS
+
+### 판단
+- AWS Native 정합성
+- 30개 리포트 QuickSight로 충분
+- UI Customization 요구 높지 않음
+- Snapshot 전략으로 비용 해결
+
+→ QuickSight 채택
+
+</details>
 
 ---
 
-## 🏁 Conclusion
+# 🏁 Impact
 
-This project represents more than a dashboard system.
+- 비용 90% 절감
+- 3초 응답 유지
+- 2,000+ 학교 지원
+- DB 튜닝 + View 모델링
+- Multi-Tenant 보안 구조
+- Cloud-Native BI 설계
 
-It is a:
+---
 
-- Production-grade AWS BI platform
-- Cost-optimized embedded analytics architecture
-- Multi-tenant secure reporting system
-- Performance-tuned database-driven analytics solution
+# Conclusion
 
-Built with full-stack engineering discipline and cloud-native architecture principles.
+이 프로젝트는 단순 대시보드가 아닌,
+
+- Production-Grade AWS BI 플랫폼
+- 비용 최적화 Embedded Analytics
+- 멀티 테넌트 보안 설계
+- 데이터베이스 성능 튜닝 기반 분석 시스템
+
+을 구현한 클라우드 네이티브 엔지니어링 사례입니다.
